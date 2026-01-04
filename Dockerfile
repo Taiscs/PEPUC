@@ -1,13 +1,12 @@
-# Usa imagem PHP com servidor embutido
-FROM php:8.2-cli
+FROM php:8.2-apache
 
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Copia os arquivos do projeto para dentro do container
+# Copia o projeto inteiro
 COPY . .
 
-# Expõe a porta que a Render usa
-EXPOSE 8000
+# Aponta o DocumentRoot para a pasta app
+RUN sed -i 's|/var/www/html|/var/www/html/app|g' /etc/apache2/sites-available/000-default.conf
 
-# Inicia o servidor PHP embutido
-CMD php -S 0.0.0.0:$PORT -t .
+# Ativa mod_rewrite se precisar
+RUN a2enmod rewrite

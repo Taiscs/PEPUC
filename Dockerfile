@@ -1,22 +1,13 @@
-# Escolhe a imagem oficial do PHP com Apache
-FROM php:8.2-apache
+# Usa imagem PHP com servidor embutido
+FROM php:8.2-cli
 
-# Ativa extensões necessárias do PHP
-RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo pdo_mysql
+WORKDIR /var/www
 
-# Copia o código do projeto para o container
-COPY . /var/www/html/
+# Copia os arquivos do projeto para dentro do container
+COPY . .
 
-# Define a pasta pública do CI como root do Apache
-WORKDIR /var/www/html
-RUN chown -R www-data:www-data /var/www/html/writable
-RUN chmod -R 755 /var/www/html/writable
+# Expõe a porta que a Render usa
+EXPOSE 8000
 
-# Ativa mod_rewrite para CodeIgniter
-RUN a2enmod rewrite
-
-# Expondo porta padrão do Apache
-EXPOSE 80
-
-# Comando padrão do container
-CMD ["apache2-foreground"]
+# Inicia o servidor PHP embutido
+CMD php -S 0.0.0.0:$PORT -t .

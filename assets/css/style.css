@@ -1,0 +1,323 @@
+/* Variáveis de Design - Facilita mudar as cores do projeto todo aqui */
+:root {
+    --primary-color: #4a7c7d;
+    --primary-hover: #3d6667;
+    --accent-color: #4CAF50;
+    --accent-hover: #43a047;
+    --text-main: #333333;
+    --text-light: #666666;
+    --bg-light: #fafafa;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* CONTAINER REUTILIZÁVEL */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+/* HEADER OTIMIZADO */
+.header {
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.logo img {
+    height: 50px;
+    transition: var(--transition);
+}
+
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.menu a {
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.menu a:hover {
+    color: var(--primary-color);
+}
+
+/* HERO CAROUSEL MELHORADO */
+.hero-carousel {
+    position: relative;
+    height: 80vh;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    width: 400%; /* Ajustado para 4 imagens */
+    height: 100%;
+    animation: slide 20s infinite ease-in-out;
+}
+
+.carousel-track img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8); /* Ajuda na leitura do texto */
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px;
+}
+
+.hero-content h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Fonte fluida */
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    margin-bottom: 35px;
+    max-width: 700px;
+    opacity: 0.9;
+}
+
+/* BOTÕES */
+.btn-primary, .btn-donate {
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-donate {
+    background: var(--accent-color);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-donate:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+/* SECTIONS & CARDS */
+.section-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.card {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid #f0f0f0;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+}
+
+/* ANIMAÇÃO DO CARROSSEL */
+@keyframes slide {
+    0%, 20% { transform: translateX(0); }
+    25%, 45% { transform: translateX(-100%); }
+    50%, 70% { transform: translateX(-200%); }
+    75%, 95% { transform: translateX(-300%); }
+    100% { transform: translateX(0); }
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .menu ul {
+        gap: 15px;
+        font-size: 0.85rem;
+    }
+
+    .container {
+        padding: 40px 20px;
+    }
+}
+
+:root {
+    --primary: #2c5282; /* Azul sóbrio (Igreja/Institucional) */
+    --accent: #ed8936;  /* Laranja (Ação social/Calor humano) */
+    --light-bg: #f7fafc;
+    --text: #2d3748;
+}
+
+/* Ajuste Geral */
+body { font-family: 'Poppins', sans-serif; color: var(--text); background: #fff; margin:0; }
+
+/* HERO SECTION - Corrigindo as imagens */
+.hero {
+    position: relative;
+    height: 80vh; /* Altura da tela */
+    min-height: 500px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+    z-index: 1;
+}
+
+.hero-text-box {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    z-index: 2;
+    max-width: 600px;
+    color: white;
+}
+
+.hero-text-box h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; }
+.hero-text-box h1 strong { color: var(--accent); }
+.tagline { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; color: var(--accent); font-weight: bold; }
+
+/* BOTÕES */
+.btn-main {
+    background: var(--accent);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-outline {
+    border: 2px solid white;
+    color: white;
+    padding: 13px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+/* SEÇÃO SOBRE */
+.container { max-width: 1100px; margin: auto; padding: 80px 20px; }
+.section-header { text-align: center; margin-bottom: 40px; }
+.divider { width: 60px; height: 4px; background: var(--accent); margin: 20px auto; }
+.about-content { text-align: center; font-size: 1.2rem; color: #4a5568; line-height: 1.8; }
+
+/* IMPACT CARDS */
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.impact-card {
+    background: var(--light-bg);
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.impact-card.featured {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05); /* Destaque suave */
+}
+
+.impact-card.featured p { color: #cbd5e0; }
+
+.icon { font-size: 40px; margin-bottom: 20px; display: block; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero-text-box { left: 5%; text-align: center; width: 90%; }
+    .hero-text-box h1 { font-size: 2rem; }
+    .btn-outline { margin-left: 0; margin-top: 10px; display: block; }
+}

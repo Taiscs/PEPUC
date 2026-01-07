@@ -12,24 +12,26 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod rewrite
 
 # 3. Configura o DocumentRoot para a pasta 'public'
+# Como os arquivos estão na raiz do repo, o caminho no container será /var/www/html/public
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
-# 4. Composer oficial
+# 4. Instala o Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 5. Define diretório e copia os arquivos
 WORKDIR /var/www/html
 COPY . .
 
-# 6. Instala dependências (Isso agora deve funcionar)
+# 6. Instala dependências do Composer
 RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
-# 7. Permissões para o CodeIgniter
+# 7. Ajusta permissões para a pasta 'writable' do CodeIgniter
 RUN mkdir -p /var/www/html/writable \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/writable
 
 EXPOSE 80
+
 CMD ["apache2-foreground"]

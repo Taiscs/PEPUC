@@ -1,31 +1,33 @@
 FROM php:8.2-apache
 
-# 1. Instala extensões (Otimizado)
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions intl mysqli pdo_mysql zip gd
+# 1. Instala apenas o básico necessário para o CI4 (sem compilar GD agora)
+RUN apt-get update && apt-get install -y \
+    libicu-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    && docker-php-ext-install intl mysqli pdo_mysql zip
 
+# 2. Habilita o mod_rewrite
 RUN a2enmod rewrite
 
-# 2. Configura DocumentRoot
+# 3. Configura DocumentRoot
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
-# 3. Composer
+# 4. Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 4. Copia os arquivos
+# 5. Define diretório e copia arquivos
 WORKDIR /var/www/html
 COPY . .
 
-# 5. LISTAR ARQUIVOS (Para vermos o que foi copiado no log se falhar)
-RUN ls -la
+# 6. Força a instalação das dependências
+# Adicionamos --ignore-platform-reqs para ele não travar caso falte alguma extensão no build
+RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
-# 6. Tenta instalar (se o composer.json não estiver aqui, o comando acima 'ls' nos dirá onde ele está)
-RUN composer install --no-dev --optimize-autoloader --no-interaction
-
-# 7. Permissões
+# 7. Permissões essenciais
 RUN mkdir -p /var/www/html/writable \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/writable

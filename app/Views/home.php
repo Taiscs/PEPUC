@@ -284,7 +284,7 @@
       </div>
       <div class="col-md-6 d-flex justify-content-center">
         <div class="imagem-container">
-          <img src="http://localhost/portal-ci/public/assets/images/10ea8392-55aa-420f-8e2d-eaeb8ed83621.jpg" alt="Quem Somos">
+          <img src="<?= base_url('assets/images/10ea8392-55aa-420f-8e2d-eaeb8ed83621.jpg') ?>" alt="Quem Somos">
         </div>
       </div>
     </div>
@@ -424,4 +424,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
